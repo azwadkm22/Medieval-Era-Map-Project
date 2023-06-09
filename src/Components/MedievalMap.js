@@ -12,7 +12,9 @@ class MedievalMap extends Component {
     }
 
     zoneNormalStyle = {
-        fillColor: "#DEDEDE",
+        // fillColor: "#ffffe4",
+
+        fillColor: "#faebd7",
         fillOpacity: 1,
         color: "black",
         weight: 1
@@ -56,9 +58,7 @@ class MedievalMap extends Component {
             <div>
                 <h1> My Map </h1>
                 <MapContainer style={{height:"800px"}} zoom={2} center={[20, 100]}>
-                    <GeoJSON style={this.zoneNormalStyle} data={mapData.features} onEachFeature={this.onEachCountry} />
-
-
+                    <GeoJSON style={this.zoneNormalStyle} data={mapData.features} onEachFeature={this.onEachCountry} /> 
                 </MapContainer>
             </div>
         )

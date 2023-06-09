@@ -1,7 +1,5 @@
 .leaflet-container {
-    background-color: white;
-}
+    /* background-color: #86cefa; */
 
-.geojson-style{
-    fillColor: red;
+    background-color: #a0d3f3;
 }
