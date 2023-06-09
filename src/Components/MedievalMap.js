@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import mapData from "../Data/countries.json";
-import { MapContainer, GeoJSON } from 'react-leaflet';
+import landData from "../Data/land.json";
+import civData from "../Data/civ.json";
+import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import "./MedievalMap.css"
 
@@ -13,9 +15,16 @@ class MedievalMap extends Component {
 
     zoneNormalStyle = {
         // fillColor: "#ffffe4",
-
         fillColor: "#faebd7",
-        fillOpacity: 1,
+        fillOpacity: 0.8,
+        color: "black",
+        weight: 1
+    }
+
+    zoneNormalStyle = {
+        // fillColor: "#ffffe4",
+        fillColor: "#faebd7",
+        fillOpacity: 0.8,
         color: "black",
         weight: 1
     }
@@ -40,11 +49,22 @@ class MedievalMap extends Component {
     mouseOutZone = (event) => {
         event.target.setStyle(this.zoneNormalStyle)
     }
+
     onEachCountry = (country, layer) => {
-        const countryName =  country.properties.ADMIN;
+        const countryName = country.properties.ADMIN;
         console.log()
         layer.bindPopup(countryName)
+        layer.on({
+            // click: this.onCountryClick,
+            mouseover: this.mouseOverZone,
+            mouseout: this.mouseOutZone
+        })
+    }
 
+    onEachCiv = (country, layer) => {
+        const countryName = country.properties.civName;
+        console.log()
+        layer.bindPopup(countryName)
         layer.on({
             // click: this.onCountryClick,
             mouseover: this.mouseOverZone,
@@ -58,7 +78,9 @@ class MedievalMap extends Component {
             <div>
                 <h1> My Map </h1>
                 <MapContainer style={{height:"800px"}} zoom={2} center={[20, 100]}>
-                    <GeoJSON style={this.zoneNormalStyle} data={mapData.features} onEachFeature={this.onEachCountry} /> 
+                    <GeoJSON style={this.zoneNormalStyle} data={landData.features} /> 
+                    {/* <GeoJSON style={this.zoneNormalStyle} data={mapData.features} onEachFeature={this.onEachCountry} />  */}
+                    <GeoJSON style={this.zoneNormalStyle} data={civData.features} onEachFeature={this.onEachCiv} /> 
                 </MapContainer>
             </div>
         )
